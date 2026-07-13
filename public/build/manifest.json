@@ -1,0 +1,59 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-BjP06v0C.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/anggota.js": {
+    "file": "assets/anggota-BxDzcZ1_.js",
+    "name": "anggota",
+    "src": "resources/js/anggota.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CIomGrQN.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/buku.js": {
+    "file": "assets/buku-1N3CQn3d.js",
+    "name": "buku",
+    "src": "resources/js/buku.js",
+    "isEntry": true
+  },
+  "resources/js/landing.js": {
+    "file": "assets/landing-CVEBv5Rm.js",
+    "name": "landing",
+    "src": "resources/js/landing.js",
+    "isEntry": true
+  },
+  "resources/js/login.js": {
+    "file": "assets/login-CZWkonvp.js",
+    "name": "login",
+    "src": "resources/js/login.js",
+    "isEntry": true
+  },
+  "resources/js/pengembalian.js": {
+    "file": "assets/pengembalian-C9u1AvJe.js",
+    "name": "pengembalian",
+    "src": "resources/js/pengembalian.js",
+    "isEntry": true
+  },
+  "resources/js/register.js": {
+    "file": "assets/register-DVh5wL7H.js",
+    "name": "register",
+    "src": "resources/js/register.js",
+    "isEntry": true
+  },
+  "resources/js/user_katalog.js": {
+    "file": "assets/user_katalog-D8XDSZvk.js",
+    "name": "user_katalog",
+    "src": "resources/js/user_katalog.js",
+    "isEntry": true
+  }
+}
