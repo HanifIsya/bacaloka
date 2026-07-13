@@ -6,6 +6,11 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Font bawaan kamu atau disesuaikan dengan Plus Jakarta Sans */
+    --font-sans: 'Plus Jakarta Sans', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Custom Theme Colors untuk BACALOKA */
+    --color-brand-dark: #1e3a5f;
+    --color-brand-hover: #172e4d;
+    --color-brand-accent: #f59e0b;
 }
