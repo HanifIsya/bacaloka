@@ -10,25 +10,35 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+{
+    $credentials = $request->validate([
+        'username' => 'required|string',
+        'password' => 'required|string',
+    ]);
 
-        if (Auth::attempt(['username' => $credentials['username'], 'password' => $credentials['password']])) {
-            $request->session()->regenerate();
-            $user = Auth::user();
+    if (Auth::attempt(['username' => $credentials['username'], 'password' => $credentials['password']])) {
+        $user = Auth::user();
 
-            if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            }
+        // Pengecekan jika status keanggotaan Nonaktif / Non-aktif
+        if ($user->status_aktif !== 'Aktif') {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-            return redirect()->route('user.dashboard');
+            return back()->with('error', 'Akun Anda telah dinonaktifkan. Silakan hubungi admin perpustakaan.')->withInput();
         }
 
-        return back()->with('error', 'Username atau password salah!')->withInput();
+        $request->session()->regenerate();
+
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return redirect()->route('user.dashboard');
     }
+
+    return back()->with('error', 'Username atau password salah!')->withInput();
+}
 
     public function register(Request $request)
     {

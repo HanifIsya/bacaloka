@@ -3,12 +3,26 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\BukuController;
+use App\Http\Controllers\Admin\AnggotaController;
+use App\Http\Controllers\Admin\PengembalianController;
 
-// 1. Guest Routes
+/*
+|--------------------------------------------------------------------------
+| Web Routes - BACALOKA Perpustakaan Digital
+|--------------------------------------------------------------------------
+*/
+
+// ==========================================
+// 1. PUBLIC / GUEST ROUTES
+// ==========================================
+
+// Landing Page
 Route::get('/', function () {
     return view('landing');
 })->name('landing');
 
+// Authentication Routes
 Route::get('/login', function () {
     return view('login');
 })->name('login');
@@ -23,14 +37,36 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.po
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// 2. Protected Admin Routes
+
+// ==========================================
+// 2. PROTECTED ADMIN ROUTES (Role: Admin)
+// ==========================================
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    
+    // Dashboard Admin
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // CRUD Kelola Data Buku
+    Route::resource('buku', BukuController::class);
+
+    // Pendaftaran Anggota & Status Keanggotaan
+    Route::resource('anggota', AnggotaController::class);
+
+    // Manajemen Pengembalian & Histori
+    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+    Route::get('/pengembalian/{id}', [PengembalianController::class, 'show'])->name('pengembalian.show');
+    Route::post('/pengembalian/{id}', [PengembalianController::class, 'store'])->name('pengembalian.store');
 });
 
-// 3. Protected User Routes (Nanti dikerjakan setelah Admin selesai)
+
+// ==========================================
+// 3. PROTECTED USER ROUTES (Role: Anggota)
+// ==========================================
 Route::middleware(['auth', 'role:anggota'])->prefix('user')->name('user.')->group(function () {
+    
+    // Dashboard User (Akan dikerjakan setelah ini)
     Route::get('/dashboard', function () {
-        return "Dashboard User (Halaman ini akan dibuat setelah seluruh fitur admin selesai)";
+        return "Dashboard User (Akan dikerjakan sekarang)";
     })->name('dashboard');
+
 });

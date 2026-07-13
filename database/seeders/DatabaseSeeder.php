@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'anggota',
             'status_aktif' => 'Aktif'
         ]);
+        
 
         // 3. Data Master Buku
         $b1 = Buku::create(['kode_buku' => 'BK-0001', 'judul' => 'Algoritma dan Pemrograman', 'pengarang' => 'Marty Puso', 'penerbit' => 'Informatika', 'kategori' => 'Informatika', 'stok' => 5]);
