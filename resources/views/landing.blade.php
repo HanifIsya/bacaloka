@@ -43,7 +43,7 @@
                     <a href="{{ route('login') }}" class="px-5 py-2.5 text-sm font-semibold text-brand-dark hover:bg-slate-100 rounded-xl transition-all">
                         Masuk
                     </a>
-                    <a href="{{ route('login') }}" class="px-5 py-2.5 text-sm font-semibold text-white bg-brand-dark hover:bg-brand-hover rounded-xl shadow-md transition-all">
+                    <a href="{{ route('register') }}" class="px-5 py-2.5 text-sm font-semibold text-white bg-brand-dark hover:bg-brand-hover rounded-xl shadow-md transition-all">
                         Registrasi
                     </a>
                 </div>

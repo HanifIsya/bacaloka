@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - BACALOKA Perpustakaan Digital</title>
+    <title>Registrasi Anggota - BACALOKA Perpustakaan Digital</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,12 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Vite Assets -->
-    @vite(['resources/css/app.css', 'resources/js/login.js'])
+    @vite(['resources/css/app.css', 'resources/js/register.js'])
 </head>
 <body class="bg-slate-100 min-h-screen flex items-center justify-center p-4 md:p-6">
 
     <!-- Card Container -->
-    <div class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[520px] relative">
+    <div class="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[580px]">
         
         <!-- Sisi Kiri: Branding & Banner (Navy Blue) -->
         <div class="md:w-1/2 bg-brand-dark p-8 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
@@ -28,7 +28,6 @@
 
             <!-- Content Top: Navigasi Kembali & Logo -->
             <div class="relative z-10 space-y-6">
-                <!-- Navigasi Kembali ke Landing Page -->
                 <a href="{{ route('landing') }}" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-white transition-colors bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg border border-white/10 w-fit">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -49,10 +48,10 @@
             <!-- Content Middle: Tagline -->
             <div class="relative z-10 my-8">
                 <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">
-                    Sistem Layanan<br>Perpustakaan<br>Digital
+                    Bergabung Jadi<br>Anggota Digital
                 </h1>
                 <p class="text-gray-300 text-sm leading-relaxed max-w-sm">
-                    Akses koleksi buku, kelola aktivitas perpustakaan, dan nikmati layanan digital dalam satu platform.
+                    Daftarkan diri Anda untuk menikmati kemudahan pinjam buku mandiri dan akses katalog terlengkap.
                 </p>
             </div>
 
@@ -62,27 +61,36 @@
             </div>
         </div>
 
-        <!-- Sisi Kanan: Form Login -->
+        <!-- Sisi Kanan: Form Registrasi -->
         <div class="md:w-1/2 bg-[#f8fafc] p-8 md:p-12 flex flex-col justify-center">
             
-            <div class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">Selamat Datang</h2>
-                <p class="text-slate-500 text-sm">Masuk ke akun Anda untuk melanjutkan</p>
+            <div class="mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">Pendaftaran Anggota</h2>
+                <p class="text-slate-500 text-sm">Isi data diri Anda dengan lengkap</p>
             </div>
 
-            <!-- Pesan Error Session -->
-            @if(session('error'))
-                <div class="mb-4 p-3 bg-red-100 border border-red-200 text-red-700 text-sm rounded-lg">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-            <form id="loginForm" action="{{ route('login.post') }}" method="POST" class="space-y-5">
+            <form id="registerForm" action="{{ route('register.post') }}" method="POST" class="space-y-4">
                 @csrf
 
-                <!-- Input Username -->
+                <!-- Nama Lengkap -->
                 <div>
-                    <label for="username" class="block text-sm font-semibold text-slate-700 mb-2">
+                    <label for="nama" class="block text-sm font-semibold text-slate-700 mb-1">
+                        Nama Lengkap <span class="text-red-500">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="nama" 
+                        name="nama" 
+                        value="{{ old('nama') }}"
+                        placeholder="Masukkan nama lengkap" 
+                        required
+                        class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-all shadow-sm"
+                    >
+                </div>
+
+                <!-- Username -->
+                <div>
+                    <label for="username" class="block text-sm font-semibold text-slate-700 mb-1">
                         Username <span class="text-red-500">*</span>
                     </label>
                     <input 
@@ -90,49 +98,58 @@
                         id="username" 
                         name="username" 
                         value="{{ old('username') }}"
-                        placeholder="Masukkan username" 
+                        placeholder="Buat username" 
                         required
-                        class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-all shadow-sm"
+                        class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-all shadow-sm"
                     >
-                    @error('username')
-                        <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                    @enderror
                 </div>
 
-                <!-- Input Password -->
+                <!-- Alamat -->
                 <div>
-                    <label for="password" class="block text-sm font-semibold text-slate-700 mb-2">
+                    <label for="alamat" class="block text-sm font-semibold text-slate-700 mb-1">
+                        Alamat <span class="text-red-500">*</span>
+                    </label>
+                    <textarea 
+                        id="alamat" 
+                        name="alamat" 
+                        rows="2"
+                        placeholder="Masukkan alamat tinggal" 
+                        required
+                        class="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-all shadow-sm resize-none"
+                    >{{ old('alamat') }}</textarea>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-semibold text-slate-700 mb-1">
                         Password <span class="text-red-500">*</span>
                     </label>
                     <input 
                         type="password" 
                         id="password" 
                         name="password" 
-                        placeholder="Masukkan password" 
+                        placeholder="Buat password" 
                         required
-                        class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-all shadow-sm"
+                        class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-all shadow-sm"
                     >
-                    @error('password')
-                        <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <!-- Tombol Submit -->
                 <button 
                     type="submit" 
                     id="submitBtn"
-                    class="w-full bg-brand-dark hover:bg-brand-hover text-white font-semibold py-3.5 px-4 rounded-xl shadow-md transition-all duration-200 text-sm mt-2 flex items-center justify-center"
+                    class="w-full bg-brand-dark hover:bg-brand-hover text-white font-semibold py-3.5 px-4 rounded-xl shadow-md transition-all duration-200 text-sm mt-3 flex items-center justify-center"
                 >
-                    Masuk
+                    Daftar Sekarang
                 </button>
             </form>
 
-            <!-- Tautan Registrasi -->
-            <div class="mt-6 text-center">
+            <!-- Tautan Kembali ke Login -->
+            <div class="mt-5 text-center">
                 <p class="text-sm text-slate-500">
-                    Belum punya akun? 
-                    <a href="{{ route('register') }}" class="font-bold text-brand-dark hover:underline">
-                        Silahkan registrasi
+                    Sudah punya akun? 
+                    <a href="{{ route('login') }}" class="font-bold text-brand-dark hover:underline">
+                        Masuk disini
                     </a>
                 </p>
             </div>
