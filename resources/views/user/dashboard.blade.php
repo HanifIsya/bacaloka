@@ -13,7 +13,7 @@
 </head>
 <body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen">
 
-    <!-- Top Navigation Bar Navy (Sesuai image_00aff6.png) -->
+    <!-- Top Navigation Bar Navy -->
     <nav class="bg-brand-dark text-white px-6 py-4 sticky top-0 z-40 shadow-md">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             
@@ -36,7 +36,7 @@
                     <span>Katalog Buku</span>
                 </a>
 
-                <a href="#" class="px-4 py-2 text-slate-300 hover:text-white font-medium text-xs rounded-xl flex items-center gap-2">
+                <a href="{{ route('user.riwayat') }}" class="px-4 py-2 text-slate-300 hover:text-white font-medium text-xs rounded-xl flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -84,7 +84,7 @@
             </div>
         @endif
 
-        <!-- Big Banner Search (Sesuai image_00aff6.png) -->
+        <!-- Big Banner Search -->
         <div class="bg-brand-dark rounded-3xl p-8 md:p-12 text-white relative overflow-hidden mb-8 shadow-xl">
             <div class="absolute -top-12 -left-12 w-64 h-64 bg-white/5 rounded-full pointer-events-none"></div>
             <div class="absolute -bottom-20 -right-10 w-80 h-80 bg-white/5 rounded-full pointer-events-none"></div>
@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <!-- Category Filter Pills (Sesuai image_00aff6.png) -->
+        <!-- Category Filter Pills -->
         <div class="flex flex-wrap items-center gap-3 mb-6">
             @php $categories = ['Semua', 'Informatika', 'Matematika', 'Web', 'Statistika']; @endphp
             @foreach($categories as $cat)
@@ -125,11 +125,10 @@
 
         <p class="text-xs text-slate-500 font-medium mb-6">{{ $totalDitemukan }} buku ditemukan</p>
 
-        <!-- Grid Cards Buku (Sesuai image_00aff6.png) -->
+        <!-- Grid Cards Buku -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @forelse($buku as $item)
                 @php
-                    // Array Warna Khas Header Card
                     $colors = [
                         'Informatika' => 'bg-[#1e3a5f]',
                         'Matematika' => 'bg-[#7c3aed]',
@@ -173,7 +172,7 @@
 
     </main>
 
-    <!-- MODAL POPUP: DETAIL BUKU & PINJAM (Sesuai image_00b016.png) -->
+    <!-- MODAL POPUP: DETAIL BUKU -->
     <div id="detailModal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             
@@ -230,18 +229,15 @@
                     </div>
                 </div>
 
-                <!-- Form Submit Pinjam -->
-                <form id="pinjamForm" method="POST">
-                    @csrf
-                    <div class="flex items-center justify-end gap-3 border-t border-slate-100 pt-4">
-                        <button id="cancelDetailModalBtn" type="button" class="px-5 py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-xs rounded-xl transition-all">
-                            Tutup
-                        </button>
-                        <button id="modalPinjamBtn" type="submit" class="px-6 py-2.5 bg-brand-dark hover:bg-brand-hover text-white font-semibold text-xs rounded-xl shadow-md transition-all">
-                            Pinjam Buku Ini
-                        </button>
-                    </div>
-                </form>
+                <!-- Action Link ke Halaman Konfirmasi Pinjam -->
+                <div class="flex items-center justify-end gap-3 border-t border-slate-100 pt-4">
+                    <button id="cancelDetailModalBtn" type="button" class="px-5 py-2.5 border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-xs rounded-xl transition-all">
+                        Tutup
+                    </button>
+                    <a id="modalPinjamBtnLink" href="#" class="px-6 py-2.5 bg-brand-dark hover:bg-brand-hover text-white font-semibold text-xs rounded-xl shadow-md transition-all inline-block text-center">
+                        Pinjam Buku Ini
+                    </a>
+                </div>
 
             </div>
 

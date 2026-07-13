@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\BukuController;
 use App\Http\Controllers\Admin\AnggotaController;
 use App\Http\Controllers\Admin\PengembalianController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,12 @@ use App\Http\Controllers\Admin\PengembalianController;
 // 1. PUBLIC / GUEST ROUTES
 // ==========================================
 
-// Landing Page
+// Landing Page (Halaman Utama)
 Route::get('/', function () {
     return view('landing');
 })->name('landing');
 
-// Authentication Routes
+// Autentikasi Routes
 Route::get('/login', function () {
     return view('login');
 })->name('login');
@@ -52,7 +53,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Pendaftaran Anggota & Status Keanggotaan
     Route::resource('anggota', AnggotaController::class);
 
-    // Manajemen Pengembalian & Histori
+    // Manajemen Pengembalian & Histori Transaksi
     Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
     Route::get('/pengembalian/{id}', [PengembalianController::class, 'show'])->name('pengembalian.show');
     Route::post('/pengembalian/{id}', [PengembalianController::class, 'store'])->name('pengembalian.store');
@@ -64,9 +65,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 // ==========================================
 Route::middleware(['auth', 'role:anggota'])->prefix('user')->name('user.')->group(function () {
     
-    // Dashboard User (Akan dikerjakan setelah ini)
-    Route::get('/dashboard', function () {
-        return "Dashboard User (Akan dikerjakan sekarang)";
-    })->name('dashboard');
+    // Dashboard Katalog Buku
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/buku/{id}', [UserController::class, 'detailBuku'])->name('buku.detail');
+    
+    // Alur Konfirmasi & Simpan Peminjaman
+    Route::get('/konfirmasi-pinjam/{id}', [UserController::class, 'konfirmasiPinjam'])->name('buku.konfirmasi');
+    Route::post('/pinjam/{id}', [UserController::class, 'storePinjam'])->name('buku.storePinjam');
+
+    // Halaman Riwayat Peminjaman User
+    Route::get('/riwayat', [UserController::class, 'riwayat'])->name('riwayat');
 
 });

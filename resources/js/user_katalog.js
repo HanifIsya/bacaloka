@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailModal = document.getElementById('detailModal');
     const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
     const cancelDetailModalBtn = document.getElementById('cancelDetailModalBtn');
-    const pinjamForm = document.getElementById('pinjamForm');
 
     // Field Modal
     const modalKodeBuku = document.getElementById('modalKodeBuku');
@@ -16,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalKategoriBody = document.getElementById('modalKategoriBody');
     const modalStokPill = document.getElementById('modalStokPill');
     const modalStokBody = document.getElementById('modalStokBody');
-    const modalPinjamBtn = document.getElementById('modalPinjamBtn');
+    const modalPinjamBtnLink = document.getElementById('modalPinjamBtnLink');
 
     // Handle Klik Kartu Buku
     document.querySelectorAll('.card-buku').forEach(card => {
@@ -37,20 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (modalStokPill) modalStokPill.textContent = `${data.stok} eks. tersedia`;
                 if (modalStokBody) modalStokBody.textContent = `${data.stok} eksemplar`;
 
-                if (pinjamForm) {
-                    pinjamForm.action = `/user/pinjam/${id}`;
-                }
-
-                // Disabel tombol pinjam jika stok habis
-                if (modalPinjamBtn) {
+                // Set dynamic href ke halaman konfirmasi peminjaman
+                if (modalPinjamBtnLink) {
                     if (data.stok <= 0) {
-                        modalPinjamBtn.disabled = true;
-                        modalPinjamBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                        modalPinjamBtn.textContent = 'Stok Habis';
+                        modalPinjamBtnLink.href = 'javascript:void(0)';
+                        modalPinjamBtnLink.classList.add('opacity-50', 'pointer-events-none');
+                        modalPinjamBtnLink.textContent = 'Stok Habis';
                     } else {
-                        modalPinjamBtn.disabled = false;
-                        modalPinjamBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                        modalPinjamBtn.textContent = 'Pinjam Buku Ini';
+                        modalPinjamBtnLink.href = `/user/konfirmasi-pinjam/${data.id_buku}`;
+                        modalPinjamBtnLink.classList.remove('opacity-50', 'pointer-events-none');
+                        modalPinjamBtnLink.textContent = 'Pinjam Buku Ini';
                     }
                 }
 
